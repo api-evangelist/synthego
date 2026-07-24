@@ -1,0 +1,204 @@
+swagger: '2.0'
+info:
+  title: Synthego Order API
+  description: An API for 3rd party integration
+  version: 1.0.0
+host: api.synthego.com
+basePath: /
+schemes:
+- https
+produces:
+- application/json
+tags:
+- name: Order
+paths:
+  /pricing:
+    get:
+      security:
+      - UserSecurity: []
+      summary: Retrieve current item pricing
+      description: The Item Pricing request is a transaction between the integrator and Synthego. The integrator accesses a URL with a valid api_key. Synthego returns the current pricing information for the products available via the Order Preview Request endpoint.
+      tags:
+      - Order
+      responses:
+        '200':
+          description: The item pricing response
+          schema:
+            $ref: '#/definitions/ProductPricingInformation'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /order/:
+    post:
+      security:
+      - UserSecurity: []
+      summary: Generate an order preview
+      description: The Order Preview request is a transaction between the integrator and Synthego. The integrator provides a list of desired guide RNA sequences, a label for sequence, and the product type. Synthego returns an Order Preview response, containing an itemized list with per-item pricing for the guide RNA, a pre-shipping subtotal for the entire request, and a unique URL to redirect the customer to in order to complete the purchase transaction.
+      parameters:
+      - name: order preview request
+        in: body
+        required: true
+        description: A list of items to add to a cart
+        schema:
+          $ref: '#/definitions/OrderPreviewRequest'
+      tags:
+      - Order
+      responses:
+        '200':
+          description: An order preview response
+          schema:
+            $ref: '#/definitions/OrderPreviewResponse'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /order/{order_request_id}:
+    get:
+      security:
+      - UserSecurity: []
+      summary: Request the status of a given order
+      description: The Order Status request is a transaction between the integrator and Synthego. The integrator accesses a status URL with the Order Preview request identifier and valid api_key. Synthego returns the current status of the order and a URL that points to the status page located on Synthego’s eCommerce site.
+      parameters:
+      - name: order_request_id
+        type: string
+        in: path
+        required: true
+      tags:
+      - Order
+      responses:
+        '200':
+          description: An order preview response
+          schema:
+            $ref: '#/definitions/OrderStatusResponse'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  ProductDescription:
+    type: object
+    properties:
+      product_item_price:
+        type: number
+        description: The product\'s list price in USD
+      product_type:
+        type: string
+        description: A short product identifier
+      product_name:
+        type: string
+        description: A human-readable product name
+  OrderPreviewRequest:
+    type: object
+    properties:
+      integrator_id:
+        type: string
+        description: An optional value provided by the integrator
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/OrderItemRequest'
+  OrderPreviewResponse:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/OrderItemEstimate'
+      order_request_id:
+        type: string
+        description: a unique identifier traceable back to the OrderPreviewRequest
+      order_request_url:
+        type: string
+        description: a unique identifier traceable back to the OrderPreviewRequest
+      subtotal:
+        type: number
+        description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
+      integrator_id:
+        type: string
+        description: An optional value provided by the integrator
+      api_key:
+        type: string
+        description: the api_key used to generate this request
+  ProductPricingInformation:
+    type: object
+    properties:
+      available_products:
+        type: array
+        items:
+          $ref: '#/definitions/ProductDescription'
+  OrderItemRequest:
+    type: object
+    properties:
+      label:
+        type: string
+        description: Customer-defined name for the product
+      sequence:
+        type: string
+        description: The IUPAC representation of an oligonucleotide
+      product_type:
+        type: string
+        description: The Synthego product type, as given by the pricing endpoint
+        enum:
+        - ez_RNA_kit
+        - ez_sgRNA_oligonucleotide
+        - ez_sgRNA_oligonucleotide_modified
+        - custom_RNA_50
+        - custom_RNA_75
+        - custom_RNA_100
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+  OrderItemEstimate:
+    type: object
+    properties:
+      label:
+        type: string
+        description: Customer-defined name for the product
+      sequence:
+        type: string
+        description: The IUPAC representation of an oligonucleotide
+      product_type:
+        type: string
+        description: The Synthego product type
+        enum:
+        - ez_crRNA
+        - ez_trRNA
+        - ez_sgRNA
+        - custom
+      product_price:
+        type: string
+        description: The Synthego price estimate for this product
+  OrderStatusResponse:
+    type: object
+    properties:
+      api_key:
+        type: string
+        description: Api_key used to generate this request
+      current_order_contents:
+        type: array
+        items:
+          $ref: '#/definitions/OrderItemEstimate'
+      initial_order:
+        type: object
+        description: Cached version of the initial order preview
+        $ref: '#/definitions/OrderPreviewResponse'
+      integrator_id:
+        type: string
+        description: Optional value provided by the integrator
+      order_request_id:
+        type: string
+        description: Unique identifier traceable back to the OrderPreviewRequest
+      status:
+        type: string
+        description: Current order status
+      subtotal:
+        type: number
+        description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
+securityDefinitions:
+  UserSecurity:
+    type: apiKey
+    in: header
+    name: SYNTHEGOAPIKEY
