@@ -1,0 +1,15 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/synthego-order-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: UserSecurity
+  type: apiKey
+  in: header
+  parameter: SYNTHEGOAPIKEY
+  sources:
+  - openapi/synthego-order-openapi.json

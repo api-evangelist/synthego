@@ -1,0 +1,14 @@
+{
+  "provider": "synthego",
+  "sources": [
+    "synthego-order-api-openapi.yml"
+  ],
+  "outputs": [
+    "synthego-order-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

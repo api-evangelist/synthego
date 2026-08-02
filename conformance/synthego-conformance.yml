@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/synthego-order-openapi.json
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: securityDefinitions declares only an apiKey scheme (SYNTHEGOAPIKEY header).
+  - id: openid-connect
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use a custom { message } envelope, not application/problem+json.
+  - id: json-api
+    conforms: false
+  - id: pagination
+    conforms: false
+    evidence: array responses have no paging parameters.
+  - id: idempotency
+    conforms: false
+    evidence: no idempotency-key header/param documented.
+compliance:
+  program_published: true
+  page: https://www.synthego.com/legal/iso-certification/
+  claims:
+    - GMP
+    - cGMP
+  note: >-
+    Synthego publishes an ISO/GMP certification page describing its cGMP-compliant
+    manufacturing quality system (relevant to therapeutic-grade synthetic RNA / CRISPR
+    reagents). Specific ISO registration numbers are presented on the page but were not
+    machine-extractable at probe time.

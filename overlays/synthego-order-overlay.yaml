@@ -1,0 +1,23 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Synthego Order API
+  version: 1.0.0
+extends: openapi/synthego-order-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: synthego
+      x-apievangelist-classification: health-tech / genome-engineering ordering
+      x-apievangelist-notes: >-
+        Swagger 2.0 spec harvested verbatim from https://api.synthego.com/synthego-public-swagger.
+        Third-party ordering API for Synthego synthetic guide-RNA products; apiKey auth via
+        the SYNTHEGOAPIKEY header.
+  - target: $.paths['/pricing'].get
+    update:
+      operationId: getPricing
+  - target: $.paths['/order/'].post
+    update:
+      operationId: createOrderPreview
+  - target: $.paths['/order/{order_request_id}'].get
+    update:
+      operationId: getOrderStatus

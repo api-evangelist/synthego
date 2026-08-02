@@ -1,0 +1,39 @@
+# Synthego
+
+> Synthego is a genome-engineering company providing synthetic guide RNA (sgRNA, crRNA, trRNA), CRISPR kits, and engineered cells for research and therapeutic development. The Synthego Order API is a third-party integration API that lets partners retrieve product pricing, generate a priced order preview from a list of guide-RNA sequences, and poll the status of a submitted order.
+
+## APIs
+
+- [Synthego Order API (Swagger UI)](https://api.synthego.com/): Third-party ordering API — pricing, order preview, and order status for synthetic guide-RNA products. Auth via the SYNTHEGOAPIKEY request header.
+- [Synthego Order API spec (Swagger 2.0)](https://api.synthego.com/synthego-public-swagger): Raw OpenAPI/Swagger 2.0 document.
+
+## Specs
+
+- [OpenAPI (harvested)](openapi/synthego-order-openapi.json): Swagger 2.0, 3 operations.
+- [OpenAPI Overlay](overlays/synthego-order-overlay.yaml): API Evangelist enhancements (operationIds, classification).
+
+## Operations
+
+- GET /pricing — Retrieve current item pricing for orderable products.
+- POST /order/ — Generate a priced order preview; returns an order_request_id and checkout URL.
+- GET /order/{order_request_id} — Request the status of a given order.
+
+## Artifacts
+
+- [Authentication](authentication/synthego-authentication.yml): apiKey (SYNTHEGOAPIKEY header).
+- [Conventions](conventions/synthego-conventions.yml): auth, pagination, versioning, error envelope.
+- [Error catalog](errors/synthego-problem-types.yml): generic { message } envelope.
+- [Data model](data-model/synthego-data-model.yml): product / order entity graph.
+- [Lifecycle](lifecycle/synthego-lifecycle.yml): versioning + deprecation posture.
+- [Conformance](conformance/synthego-conformance.yml): standards + ISO/GMP compliance page.
+- [MCP (candidate)](mcp/synthego-mcp.yml): candidate MCP tool surface.
+- [Agent skill](skills/synthego-place-order.md): guided ordering flow.
+
+## Docs
+
+- [Synthego website](https://www.synthego.com/)
+- [Blog](https://www.synthego.com/blog)
+- [ISO / GMP certification](https://www.synthego.com/legal/iso-certification/)
+- [Terms of Use](https://www.synthego.com/legal/terms-of-use/)
+- [Privacy Policy](https://www.synthego.com/legal/privacy-policy/)
+- [GitHub](https://github.com/synthego)

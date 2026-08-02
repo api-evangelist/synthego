@@ -1,0 +1,58 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/synthego-order-openapi.json
+api: Synthego Order API
+entities:
+  - name: ProductPricingInformation
+    description: Wrapper returned by GET /pricing; holds the catalog of orderable products.
+    fields: [available_products]
+  - name: ProductDescription
+    description: A single orderable Synthego product and its list price.
+    fields: [product_item_price, product_type, product_name]
+  - name: OrderPreviewRequest
+    description: Integrator-supplied cart of guide-RNA items to price.
+    fields: [integrator_id, items]
+  - name: OrderItemRequest
+    description: One requested guide-RNA item (label, IUPAC sequence, product type).
+    fields: [label, sequence, product_type]
+    enums:
+      product_type: [ez_RNA_kit, ez_sgRNA_oligonucleotide, ez_sgRNA_oligonucleotide_modified, custom_RNA_50, custom_RNA_75, custom_RNA_100]
+  - name: OrderPreviewResponse
+    description: Priced preview with per-item estimates, subtotal, and a checkout URL.
+    fields: [items, order_request_id, order_request_url, subtotal, integrator_id, api_key]
+  - name: OrderItemEstimate
+    description: A priced line item in a preview or status response.
+    fields: [label, sequence, product_type, product_price]
+    enums:
+      product_type: [ez_crRNA, ez_trRNA, ez_sgRNA, custom]
+  - name: OrderStatusResponse
+    description: Current status of a submitted order, keyed by order_request_id.
+    fields: [api_key, current_order_contents, initial_order, integrator_id, order_request_id, status, subtotal]
+  - name: Error
+    description: Generic error envelope.
+    fields: [message]
+relationships:
+  - from: ProductPricingInformation
+    to: ProductDescription
+    kind: has_many
+    via: available_products
+  - from: OrderPreviewRequest
+    to: OrderItemRequest
+    kind: has_many
+    via: items
+  - from: OrderPreviewResponse
+    to: OrderItemEstimate
+    kind: has_many
+    via: items
+  - from: OrderStatusResponse
+    to: OrderItemEstimate
+    kind: has_many
+    via: current_order_contents
+  - from: OrderStatusResponse
+    to: OrderPreviewResponse
+    kind: has_one
+    via: initial_order
+key_fields:
+  order_request_id:
+    description: Correlates an OrderPreviewResponse with its OrderStatusResponse.
+    referenced_by: [OrderPreviewResponse, OrderStatusResponse, "GET /order/{order_request_id}"]

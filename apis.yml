@@ -1,8 +1,25 @@
 aid: synthego
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/synthego.png
 name: Synthego
-description: 'Synthego is a company surfaced as a portfolio company of softbank-vision-fund and added
-  to the API Evangelist network as a stub for enrichment. Sector: health-tech. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: >-
+  Synthego is a genome-engineering company that manufactures synthetic guide RNA (sgRNA, crRNA,
+  trRNA), CRISPR kits, and engineered cells for research and cell/gene-therapy development. Its
+  public Synthego Order API is a third-party integration API that lets partners retrieve current
+  product pricing, generate a priced order preview from a list of guide-RNA sequences, and track an
+  order through to checkout on Synthego's eCommerce site. Authentication is by an API key passed in
+  the SYNTHEGOAPIKEY header. Synthego was surfaced as a portfolio company of SoftBank Vision Fund.
 url: https://raw.githubusercontent.com/api-evangelist/synthego/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,13 +29,77 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Health Tech
-apis: []
+- Genomics
+- CRISPR
+- Biotechnology
+- Life Sciences
+- Synthetic Biology
+- Ordering
+apis:
+- aid: synthego:synthego-order-api
+  name: Synthego Order API
+  description: The Order API from Synthego — 3 operation(s) for order.
+  humanURL: https://api.synthego.com/
+  baseURL: https://api.synthego.com/
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/synthego-order-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: AgenticAccess
+  url: agentic-access/synthego-agentic-access.yml
+- type: Website
+  url: https://www.synthego.com/
+- type: Documentation
+  url: https://api.synthego.com/
+- type: APIReference
+  url: https://api.synthego.com/
+- type: Blog
+  url: https://www.synthego.com/blog
+- type: Support
+  url: https://www.synthego.com/contact
+- type: GitHubOrganization
+  url: https://github.com/synthego
+- type: TermsOfService
+  url: https://www.synthego.com/legal/terms-of-use/
+- type: PrivacyPolicy
+  url: https://www.synthego.com/legal/privacy-policy/
+- type: Compliance
+  url: https://www.synthego.com/legal/iso-certification/
+- type: Authentication
+  url: authentication/synthego-authentication.yml
+- type: DomainSecurity
+  url: security/synthego-domain-security.yml
+- type: Conventions
+  url: conventions/synthego-conventions.yml
+- type: ErrorCatalog
+  url: errors/synthego-problem-types.yml
+- type: DataModel
+  url: data-model/synthego-data-model.yml
+- type: Lifecycle
+  url: lifecycle/synthego-lifecycle.yml
+- type: Conformance
+  url: conformance/synthego-conformance.yml
+- type: WellKnown
+  url: well-known/synthego-well-known.yml
+- type: MCPServer
+  url: mcp/synthego-mcp.yml
+- type: LLMsTxt
+  url: llms/synthego-llms.txt
+- type: AgentSkill
+  url: skills/synthego-place-order.md
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v1

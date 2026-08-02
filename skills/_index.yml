@@ -1,0 +1,10 @@
+generated: '2026-07-21'
+method: generated
+skills:
+  - file: synthego-place-order.md
+    name: Place a Synthego guide-RNA order
+    api: openapi/synthego-order-openapi.json
+    operations:
+      - "GET /pricing"
+      - "POST /order/"
+      - "GET /order/{order_request_id}"

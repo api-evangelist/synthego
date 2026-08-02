@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/synthego-order-openapi.json
+api: Synthego Order API
+authentication:
+  style: api-key
+  location: header
+  parameter: SYNTHEGOAPIKEY
+  cross_ref: authentication/synthego-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header or parameter is documented in the published spec. The order
+    flow is two-phase (POST /order/ returns an order_request_id + order_request_url preview
+    that the customer must confirm on Synthego's eCommerce site), so the preview call itself
+    does not place a charge.
+pagination:
+  supported: false
+  note: Responses return full arrays (available_products, items) with no paging parameters.
+versioning:
+  scheme: none-in-path
+  current: '1.0.0'
+  note: basePath is "/"; the API version (1.0.0) is carried only in the OpenAPI info block.
+media_types:
+  produces:
+    - application/json
+request_tracing:
+  supported: unknown
+  note: No request-id/correlation header is documented.
+error_envelope:
+  shape: '{ "message": string }'
+  rfc9457: false
+  cross_ref: errors/synthego-problem-types.yml
+rate_limit_signaling:
+  documented: false
+identifiers:
+  order_request_id:
+    description: Unique identifier returned by POST /order/, used to poll order status.
+    used_by:
+      - GET /order/{order_request_id}

@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/synthego-order-openapi.json
+format: custom-json
+envelope:
+  schema: Error
+  fields:
+    - name: message
+      type: string
+      description: Human-readable error message.
+note: >-
+  The Synthego Order API returns a single generic error envelope ({ "message": string })
+  on failures. It does not use RFC 9457 application/problem+json. Every operation
+  declares only a 500 "Unexpected error" response in the published spec; authentication
+  failures (missing/invalid SYNTHEGOAPIKEY) are observed to return 400 at the live host.
+problems:
+  - status: 500
+    title: Unexpected error
+    schema: Error
+    source_operations:
+      - openapi/synthego-order-openapi.json#GET /pricing
+      - openapi/synthego-order-openapi.json#POST /order/
+      - openapi/synthego-order-openapi.json#GET /order/{order_request_id}
+    remediation: >-
+      Retry the request; if the error persists, verify the request body/parameters
+      and contact Synthego integration support.
+  - status: 400
+    title: Bad request / invalid API key
+    schema: Error
+    observed: true
+    evidence: 'live GET https://api.synthego.com/pricing without a valid SYNTHEGOAPIKEY returns HTTP 400'
+    remediation: >-
+      Supply a valid SYNTHEGOAPIKEY request header issued by Synthego.

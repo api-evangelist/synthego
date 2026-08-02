@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/synthego-order-openapi.json
+api: Synthego Order API
+versioning:
+  scheme: info-version
+  current: '1.0.0'
+  in_path: false
+  note: No versioning in the URL path (basePath "/"); version is declared only in the OpenAPI info block.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No deprecation policy or RFC 8594 Sunset/Deprecation header support documented.
+sla:
+  url: null
+status_page: null
+status_page_note: No public status page found (status.synthego.com does not resolve).
+deprecated_operations: []
