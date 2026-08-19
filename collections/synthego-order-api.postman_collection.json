@@ -1,0 +1,502 @@
+{
+  "item": [
+    {
+      "id": "e8d04aa6-e1a8-42df-90c4-ee21e6ec66fa",
+      "name": "Order",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c40e51d4-180b-421f-9235-681a86c62a89",
+          "name": "Retrieve current item pricing",
+          "request": {
+            "name": "Retrieve current item pricing",
+            "description": {
+              "content": "The Item Pricing request is a transaction between the integrator and Synthego. The integrator accesses a URL with a valid api_key. Synthego returns the current pricing information for the products available via the Order Preview Request endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pricing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "SYNTHEGOAPIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "10a6effa-d05a-41cc-b1d5-4d26635a95d5",
+              "name": "The item pricing response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SYNTHEGOAPIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"available_products\": [\n    {\n      \"product_item_price\": 8618.272978767722,\n      \"product_type\": \"string\",\n      \"product_name\": \"string\"\n    },\n    {\n      \"product_item_price\": 6147.777621436065,\n      \"product_type\": \"string\",\n      \"product_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c2352ab-0235-40e9-ab65-cfbb154e5aae",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SYNTHEGOAPIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25bdc5e1-c3ae-4ed9-b80d-868c2191570b",
+          "name": "Generate an order preview",
+          "request": {
+            "name": "Generate an order preview",
+            "description": {
+              "content": "The Order Preview request is a transaction between the integrator and Synthego. The integrator provides a list of desired guide RNA sequences, a label for sequence, and the product type. Synthego returns an Order Preview response, containing an itemized list with per-item pricing for the guide RNA, a pre-shipping subtotal for the entire request, and a unique URL to redirect the customer to in order to complete the purchase transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "SYNTHEGOAPIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"integrator_id\": \"<string>\",\n  \"items\": [\n    {\n      \"label\": \"<string>\",\n      \"sequence\": \"<string>\",\n      \"product_type\": \"<string>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"sequence\": \"<string>\",\n      \"product_type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6859dab4-6e1b-4893-b2fc-3cbc907eb9ec",
+              "name": "An order preview response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SYNTHEGOAPIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"integrator_id\": \"<string>\",\n  \"items\": [\n    {\n      \"label\": \"<string>\",\n      \"sequence\": \"<string>\",\n      \"product_type\": \"<string>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"sequence\": \"<string>\",\n      \"product_type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"label\": \"string\",\n      \"sequence\": \"string\",\n      \"product_type\": \"ez_trRNA\",\n      \"product_price\": \"string\"\n    },\n    {\n      \"label\": \"string\",\n      \"sequence\": \"string\",\n      \"product_type\": \"ez_trRNA\",\n      \"product_price\": \"string\"\n    }\n  ],\n  \"order_request_id\": \"string\",\n  \"order_request_url\": \"string\",\n  \"subtotal\": 3996.1448309653015,\n  \"integrator_id\": \"string\",\n  \"api_key\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d15cb976-d635-408e-81e2-72d0a783d5ff",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SYNTHEGOAPIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"integrator_id\": \"<string>\",\n  \"items\": [\n    {\n      \"label\": \"<string>\",\n      \"sequence\": \"<string>\",\n      \"product_type\": \"<string>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"sequence\": \"<string>\",\n      \"product_type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e76fbb21-540d-4744-8b8b-14f9832ce487",
+          "name": "Request the status of a given order",
+          "request": {
+            "name": "Request the status of a given order",
+            "description": {
+              "content": "The Order Status request is a transaction between the integrator and Synthego. The integrator accesses a status URL with the Order Preview request identifier and valid api_key. Synthego returns the current status of the order and a URL that points to the status page located on Synthego’s eCommerce site.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ":order_request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_request_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "SYNTHEGOAPIKEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1d2b6fb-9269-4b82-9250-bcf346f3e595",
+              "name": "An order preview response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_request_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SYNTHEGOAPIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_key\": \"string\",\n  \"current_order_contents\": [\n    {\n      \"label\": \"string\",\n      \"sequence\": \"string\",\n      \"product_type\": \"ez_crRNA\",\n      \"product_price\": \"string\"\n    },\n    {\n      \"label\": \"string\",\n      \"sequence\": \"string\",\n      \"product_type\": \"ez_trRNA\",\n      \"product_price\": \"string\"\n    }\n  ],\n  \"initial_order\": {\n    \"items\": [\n      {\n        \"label\": \"string\",\n        \"sequence\": \"string\",\n        \"product_type\": \"ez_sgRNA\",\n        \"product_price\": \"string\"\n      },\n      {\n        \"label\": \"string\",\n        \"sequence\": \"string\",\n        \"product_type\": \"ez_crRNA\",\n        \"product_price\": \"string\"\n      }\n    ],\n    \"order_request_id\": \"string\",\n    \"order_request_url\": \"string\",\n    \"subtotal\": 9592.584441026274,\n    \"integrator_id\": \"string\",\n    \"api_key\": \"string\"\n  },\n  \"integrator_id\": \"string\",\n  \"order_request_id\": \"string\",\n  \"status\": \"string\",\n  \"subtotal\": 9673.160035534647\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84b34418-e310-4216-8e7d-d7e62111010e",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_request_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "SYNTHEGOAPIKEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.synthego.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e5991db1-c522-442c-a8a5-51c275094d0a",
+    "name": "Synthego Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "An API for 3rd party integration",
+      "type": "text/plain"
+    }
+  }
+}

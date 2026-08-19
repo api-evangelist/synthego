@@ -2,9 +2,8 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/synthego-order-openapi.json
-note: >-
-  No official hosted/remote Synthego MCP server was found. This is a candidate tool
-  surface derived from the Synthego Order API operations for a future MCP wrapper.
+note: No official hosted/remote Synthego MCP server was found. This is a candidate tool surface derived
+  from the Synthego Order API operations for a future MCP wrapper.
 server:
   name: synthego-order
   transport: http
@@ -12,12 +11,19 @@ server:
     type: apiKey
     header: SYNTHEGOAPIKEY
 tools:
-  - name: get_pricing
-    description: Retrieve current item pricing for orderable Synthego products.
-    source_operation: 'openapi/synthego-order-openapi.json#GET /pricing'
-  - name: create_order_preview
-    description: Generate a priced order preview from a list of guide-RNA items; returns an order_request_id and a checkout URL.
-    source_operation: 'openapi/synthego-order-openapi.json#POST /order/'
-  - name: get_order_status
-    description: Request the status of an order by its order_request_id.
-    source_operation: 'openapi/synthego-order-openapi.json#GET /order/{order_request_id}'
+- name: get_pricing
+  description: Retrieve current item pricing for orderable Synthego products.
+  source_operation: openapi/synthego-order-openapi.json#GET /pricing
+- name: create_order_preview
+  description: Generate a priced order preview from a list of guide-RNA items; returns an order_request_id
+    and a checkout URL.
+  source_operation: openapi/synthego-order-openapi.json#POST /order/
+- name: get_order_status
+  description: Request the status of an order by its order_request_id.
+  source_operation: openapi/synthego-order-openapi.json#GET /order/{order_request_id}
+deployment:
+  mode: none
+  verified: derived
+  tools: 3
+  checked: '2026-08-12'
+  source: catalog MCP census

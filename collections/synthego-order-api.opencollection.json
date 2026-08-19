@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Synthego Order API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve current item pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/pricing"
+          },
+          "docs": "The Item Pricing request is a transaction between the integrator and Synthego. The integrator accesses a URL with a valid api_key. Synthego returns the current pricing information for the products available via the Order Preview Request endpoint."
+        },
+        {
+          "info": {
+            "name": "Generate an order preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/order/"
+          },
+          "docs": "The Order Preview request is a transaction between the integrator and Synthego. The integrator provides a list of desired guide RNA sequences, a label for sequence, and the product type. Synthego returns an Order Preview response, containing an itemized list with per-item pricing for the guide RNA, a pre-shipping subtotal for the entire request, and a unique URL to redirect the customer to in order to complete the purchase transaction."
+        },
+        {
+          "info": {
+            "name": "Request the status of a given order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/order/:order_request_id",
+            "params": [
+              {
+                "name": "order_request_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "The Order Status request is a transaction between the integrator and Synthego. The integrator accesses a status URL with the Order Preview request identifier and valid api_key. Synthego returns the current status of the order and a URL that points to the status page located on Synthego’s eCommerce site."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
