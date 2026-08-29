@@ -68,6 +68,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/synthego-capability-edges.yml
+  name: Synthego Business Capability Map
 - type: Overlay
   url: overlays/synthego-order-overlay.yaml
 - type: AgenticAccess
