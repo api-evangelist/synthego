@@ -1,7 +1,7 @@
 {
   "provider": "synthego",
   "sources": [
-    "synthego-order-api-openapi.yml"
+    "_original/synthego-order-openapi.json"
   ],
   "outputs": [
     "synthego-order-api-openapi.yml"
@@ -9,6 +9,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "synthego-order-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "synthego-order-openapi.json: declared missing tag: Order",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "synthego-order-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
