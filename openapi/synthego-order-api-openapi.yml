@@ -92,6 +92,47 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    OrderItemRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Customer-defined name for the product
+        sequence:
+          type: string
+          description: The IUPAC representation of an oligonucleotide
+        product_type:
+          type: string
+          description: The Synthego product type, as given by the pricing endpoint
+          enum:
+          - ez_RNA_kit
+          - ez_sgRNA_oligonucleotide
+          - ez_sgRNA_oligonucleotide_modified
+          - custom_RNA_50
+          - custom_RNA_75
+          - custom_RNA_100
+    OrderPreviewResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemEstimate'
+        order_request_id:
+          type: string
+          description: a unique identifier traceable back to the OrderPreviewRequest
+        order_request_url:
+          type: string
+          description: a unique identifier traceable back to the OrderPreviewRequest
+        subtotal:
+          type: number
+          description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
+        integrator_id:
+          type: string
+          description: An optional value provided by the integrator
+        api_key:
+          type: string
+          description: the api_key used to generate this request
     OrderItemEstimate:
       type: object
       properties:
@@ -112,13 +153,23 @@ components:
         product_price:
           type: string
           description: The Synthego price estimate for this product
-    ProductPricingInformation:
+    ProductDescription:
       type: object
       properties:
-        available_products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDescription'
+        product_item_price:
+          type: number
+          description: The product\'s list price in USD
+        product_type:
+          type: string
+          description: A short product identifier
+        product_name:
+          type: string
+          description: A human-readable product name
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
     OrderStatusResponse:
       type: object
       properties:
@@ -145,23 +196,6 @@ components:
         subtotal:
           type: number
           description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
-    ProductDescription:
-      type: object
-      properties:
-        product_item_price:
-          type: number
-          description: The product\'s list price in USD
-        product_type:
-          type: string
-          description: A short product identifier
-        product_name:
-          type: string
-          description: A human-readable product name
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
     OrderPreviewRequest:
       type: object
       properties:
@@ -172,47 +206,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItemRequest'
-    OrderPreviewResponse:
+    ProductPricingInformation:
       type: object
       properties:
-        items:
+        available_products:
           type: array
           items:
-            $ref: '#/components/schemas/OrderItemEstimate'
-        order_request_id:
-          type: string
-          description: a unique identifier traceable back to the OrderPreviewRequest
-        order_request_url:
-          type: string
-          description: a unique identifier traceable back to the OrderPreviewRequest
-        subtotal:
-          type: number
-          description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
-        integrator_id:
-          type: string
-          description: An optional value provided by the integrator
-        api_key:
-          type: string
-          description: the api_key used to generate this request
-    OrderItemRequest:
-      type: object
-      properties:
-        label:
-          type: string
-          description: Customer-defined name for the product
-        sequence:
-          type: string
-          description: The IUPAC representation of an oligonucleotide
-        product_type:
-          type: string
-          description: The Synthego product type, as given by the pricing endpoint
-          enum:
-          - ez_RNA_kit
-          - ez_sgRNA_oligonucleotide
-          - ez_sgRNA_oligonucleotide_modified
-          - custom_RNA_50
-          - custom_RNA_75
-          - custom_RNA_100
+            $ref: '#/components/schemas/ProductDescription'
   securitySchemes:
     UserSecurity:
       type: apiKey
