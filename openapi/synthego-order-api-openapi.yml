@@ -92,25 +92,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    OrderItemRequest:
-      type: object
-      properties:
-        label:
-          type: string
-          description: Customer-defined name for the product
-        sequence:
-          type: string
-          description: The IUPAC representation of an oligonucleotide
-        product_type:
-          type: string
-          description: The Synthego product type, as given by the pricing endpoint
-          enum:
-          - ez_RNA_kit
-          - ez_sgRNA_oligonucleotide
-          - ez_sgRNA_oligonucleotide_modified
-          - custom_RNA_50
-          - custom_RNA_75
-          - custom_RNA_100
     OrderPreviewResponse:
       type: object
       properties:
@@ -133,7 +114,7 @@ components:
         api_key:
           type: string
           description: the api_key used to generate this request
-    OrderItemEstimate:
+    OrderItemRequest:
       type: object
       properties:
         label:
@@ -144,15 +125,14 @@ components:
           description: The IUPAC representation of an oligonucleotide
         product_type:
           type: string
-          description: The Synthego product type
+          description: The Synthego product type, as given by the pricing endpoint
           enum:
-          - ez_crRNA
-          - ez_trRNA
-          - ez_sgRNA
-          - custom
-        product_price:
-          type: string
-          description: The Synthego price estimate for this product
+          - ez_RNA_kit
+          - ez_sgRNA_oligonucleotide
+          - ez_sgRNA_oligonucleotide_modified
+          - custom_RNA_50
+          - custom_RNA_75
+          - custom_RNA_100
     ProductDescription:
       type: object
       properties:
@@ -165,11 +145,13 @@ components:
         product_name:
           type: string
           description: A human-readable product name
-    Error:
+    ProductPricingInformation:
       type: object
       properties:
-        message:
-          type: string
+        available_products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDescription'
     OrderStatusResponse:
       type: object
       properties:
@@ -206,13 +188,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItemRequest'
-    ProductPricingInformation:
+    Error:
       type: object
       properties:
-        available_products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDescription'
+        message:
+          type: string
+    OrderItemEstimate:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Customer-defined name for the product
+        sequence:
+          type: string
+          description: The IUPAC representation of an oligonucleotide
+        product_type:
+          type: string
+          description: The Synthego product type
+          enum:
+          - ez_crRNA
+          - ez_trRNA
+          - ez_sgRNA
+          - custom
+        product_price:
+          type: string
+          description: The Synthego price estimate for this product
   securitySchemes:
     UserSecurity:
       type: apiKey
