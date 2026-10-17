@@ -92,28 +92,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    OrderPreviewResponse:
+    OrderPreviewRequest:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItemEstimate'
-        order_request_id:
-          type: string
-          description: a unique identifier traceable back to the OrderPreviewRequest
-        order_request_url:
-          type: string
-          description: a unique identifier traceable back to the OrderPreviewRequest
-        subtotal:
-          type: number
-          description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
         integrator_id:
           type: string
           description: An optional value provided by the integrator
-        api_key:
-          type: string
-          description: the api_key used to generate this request
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemRequest'
     OrderItemRequest:
       type: object
       properties:
@@ -133,25 +121,6 @@ components:
           - custom_RNA_50
           - custom_RNA_75
           - custom_RNA_100
-    ProductDescription:
-      type: object
-      properties:
-        product_item_price:
-          type: number
-          description: The product\'s list price in USD
-        product_type:
-          type: string
-          description: A short product identifier
-        product_name:
-          type: string
-          description: A human-readable product name
-    ProductPricingInformation:
-      type: object
-      properties:
-        available_products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDescription'
     OrderStatusResponse:
       type: object
       properties:
@@ -178,21 +147,52 @@ components:
         subtotal:
           type: number
           description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
-    OrderPreviewRequest:
+    OrderPreviewResponse:
       type: object
       properties:
-        integrator_id:
-          type: string
-          description: An optional value provided by the integrator
         items:
           type: array
           items:
-            $ref: '#/components/schemas/OrderItemRequest'
+            $ref: '#/components/schemas/OrderItemEstimate'
+        order_request_id:
+          type: string
+          description: a unique identifier traceable back to the OrderPreviewRequest
+        order_request_url:
+          type: string
+          description: a unique identifier traceable back to the OrderPreviewRequest
+        subtotal:
+          type: number
+          description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
+        integrator_id:
+          type: string
+          description: An optional value provided by the integrator
+        api_key:
+          type: string
+          description: the api_key used to generate this request
     Error:
       type: object
       properties:
         message:
           type: string
+    ProductPricingInformation:
+      type: object
+      properties:
+        available_products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDescription'
+    ProductDescription:
+      type: object
+      properties:
+        product_item_price:
+          type: number
+          description: The product\'s list price in USD
+        product_type:
+          type: string
+          description: A short product identifier
+        product_name:
+          type: string
+          description: A human-readable product name
     OrderItemEstimate:
       type: object
       properties:
